@@ -7,3 +7,18 @@ edition = "2021"
 
 [dependencies]
 tokio = { version = "1", features = ["full"] }
+rand = "0.8"
+
+# Dépendances autres
+
+[[bin]]
+name = "load_balancer"
+path = "src/main.rs"
+
+[[bin]]
+name = "echo_server"
+path = "src/serverping.rs"
+
+[[bin]]
+name = "echo_server2"
+path = "src/serverping2.rs"
