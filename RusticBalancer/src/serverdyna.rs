@@ -23,16 +23,18 @@ async fn handle_client(mut socket: TcpStream, user: String, ip: String, server: 
         return;
     }
 
-    let mut buffer = [0; 1024];
-    while let Ok(nbytes) = socket.read(&mut buffer).await {
-        if nbytes == 0 {
-            println!("Client '{}' déconnecté.", user);
-            return;
-        }
-        if let Err(e) = socket.write_all(&buffer[..nbytes]).await {
-            eprintln!("Erreur d'écriture pour le client '{}': {}", user, e);
-            return;
-        }
+    // Envoyer la réponse "hello world" au client
+    if let Err(e) = socket.write_all(b"hello world").await {
+        eprintln!("Erreur d'écriture pour le client '{}': {}", user, e);
+    } else {
+        println!("Réponse 'hello world' envoyée au client '{}'.", user);
+    }
+
+    // Fermer la connexion
+    if let Err(e) = socket.shutdown().await {
+        eprintln!("Erreur lors de la fermeture de la connexion pour le client '{}': {}", user, e);
+    } else {
+        println!("Client '{}' déconnecté.", user);
     }
 }
 
