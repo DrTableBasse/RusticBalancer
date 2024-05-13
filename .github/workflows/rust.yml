@@ -19,7 +19,7 @@ jobs:
       run: cargo build --verbose
     - name: launch loadbalancer
       run: |
-        timeout 5 cargo run --bin loadbalancer
+        timeout 5 cargo run --bin load_balancer
     - name: launch server
       run: |
         timeout 5 cargo run --bin echo_server
