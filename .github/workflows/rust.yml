@@ -19,8 +19,14 @@ jobs:
     - name: Build
       run: cargo build --verbose
     - name: launch loadbalancer
-      run: cargo run --bin load_balancer
+      run: |
+        cargo run --bin loadbalancer
+        sleep 5
     - name: launch server
-      run: cargo run --bin echo_server
+      run: | 
+        cargo run --bin echo_server
+        sleep 5
     - name: launch client
-      run: cargo run --bin echo_server2
+      run: | 
+        cargo run --bin echo_server2
+        sleep 5
