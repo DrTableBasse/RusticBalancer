@@ -22,3 +22,7 @@ path = "src/serverping.rs"
 [[bin]]
 name = "echo_server2"
 path = "src/serverping2.rs"
+
+[[bin]]
+name = "serverdyna"
+path = "src/serverdyna.rs"
