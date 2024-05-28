@@ -35,6 +35,17 @@ Pour utiliser ce système, vous aurez besoin de :
 * Cargo d'installer 
 * De la bienveillance
 
+## Utilisation
+Exécuter dans 3 terminals différents ces commandes : 
+```sh 
+cargo run echo_server
+cargo run echo_server2
+cargo run load_balancer
+```
+
+En faisant un ping sur le loadBalancer, il redirigera automatiquement sur le serveur 1 ou le serveur 2. 
+Si plusieurs requête viennent du même point d'entrée dans les 2 secondes les requêtes sont envoyés au même serveur.
+
 ## Fonctionnalités principales
 
 - LoadBalancing entre deux serveurs.
