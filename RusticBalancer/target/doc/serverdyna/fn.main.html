@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Point d’entrée principal de l’application. Lit les configurations du fichier `conf.txt`, démarre les serveurs et gère les connexions entrantes."><title>main in serverdyna - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="serverdyna" data-themes="" data-resource-suffix="" data-rustdoc-version="1.77.2 (25ef9e3d8 2024-04-09)" data-channel="1.77.2" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../static.files/storage-4c98445ec4002617.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../serverdyna/index.html">serverdyna</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"></div></nav><div class="sidebar-resizer"></div>
+    <main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../serverdyna/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Function <a href="index.html">serverdyna</a>::<wbr><a class="fn" href="#">main</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../src/serverdyna/serverdyna.rs.html#178-261">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub(crate) fn main() -&gt; <a class="enum" href="https://doc.rust-lang.org/1.77.2/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.77.2/std/primitive.unit.html">()</a>, <a class="struct" href="https://doc.rust-lang.org/1.77.2/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/1.77.2/core/error/trait.Error.html" title="trait core::error::Error">Error</a>&gt;&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Point d’entrée principal de l’application. Lit les configurations du fichier <code>conf.txt</code>,
+démarre les serveurs et gère les connexions entrantes.</p>
+<p>Cette fonction utilise Tokio pour gérer des opérations asynchrones, notamment l’écoute de connexions TCP,
+le partage de données entre tâches et la gestion des signaux pour arrêter les serveurs proprement.</p>
+<h2 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h2>
+<p><code>Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt;</code> - Un résultat indiquant le succès ou l’échec de l’exécution de la fonction.</p>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[tokio::main]
+</span><span class="kw">async fn </span>main() -&gt; <span class="prelude-ty">Result</span>&lt;(), Box&lt;<span class="kw">dyn </span>std::error::Error&gt;&gt; {
+    <span class="comment">// Récupération du répertoire de travail actuel
+    </span><span class="kw">if let </span><span class="prelude-val">Ok</span>(current_dir) = env::current_dir() {
+        <span class="macro">println!</span>(<span class="string">"Répertoire actuel : {:?}"</span>, current_dir);
+    } <span class="kw">else </span>{
+        <span class="macro">println!</span>(<span class="string">"Impossible de récupérer le répertoire actuel."</span>);
+    }
+
+    <span class="kw">let </span>running = Arc::new(tokio::sync::Mutex::new(<span class="bool-val">true</span>));
+    <span class="kw">let </span><span class="kw-2">mut </span>tasks = Vec::new();
+
+    <span class="kw">let </span>file = std::fs::File::open(<span class="string">"conf.txt"</span>)<span class="question-mark">?</span>;
+    <span class="kw">let </span>reader = BufReader::new(file);
+
+    <span class="kw">for </span>line <span class="kw">in </span>reader.lines() {
+        <span class="kw">let </span>line = line<span class="question-mark">?</span>;
+        <span class="kw">let </span>parts: Vec&lt;<span class="kw-2">&amp;</span>str&gt; = line.split(<span class="string">":"</span>).collect();
+
+        <span class="kw">if </span>parts.len() != <span class="number">2 </span>{
+            <span class="macro">eprintln!</span>(<span class="string">"La ligne '{}' n'est pas valide."</span>, line);
+            <span class="kw">continue</span>;
+        }
+
+        <span class="kw">let </span>ip = parts[<span class="number">0</span>].trim().to_string();
+        <span class="kw">let </span>port = parts[<span class="number">1</span>].trim().parse::&lt;u16&gt;();
+
+        <span class="kw">match </span>port {
+            <span class="prelude-val">Ok</span>(port) =&gt; {
+                <span class="kw">let </span>addr = <span class="macro">format!</span>(<span class="string">"{}:{}"</span>, ip, port);
+                <span class="kw">match </span>addr.parse::&lt;std::net::SocketAddr&gt;() {
+                    <span class="prelude-val">Ok</span>(socket_addr) =&gt; {
+                        <span class="kw">let </span>listener = TcpListener::bind(<span class="kw-2">&amp;</span>socket_addr).<span class="kw">await</span><span class="question-mark">?</span>;
+                        <span class="macro">println!</span>(<span class="string">"Serveur démarré sur {}"</span>, socket_addr);
+
+                        <span class="kw">let </span>running_clone = Arc::clone(<span class="kw-2">&amp;</span>running);
+
+                        <span class="kw">let </span>task = tokio::spawn(<span class="kw">async move </span>{
+                            <span class="kw">let </span>user = <span class="string">"utilisateur inconnu"</span>.to_string();
+                            <span class="kw">loop </span>{
+                                <span class="macro">tokio::select! </span>{
+                                    result = listener.accept() =&gt; {
+                                        <span class="kw">match </span>result {
+                                            <span class="prelude-val">Ok</span>((socket, <span class="kw">_</span>)) =&gt; {
+                                                <span class="kw">let </span><span class="kw-2">mut </span>running = running_clone.lock().<span class="kw">await</span>;
+                                                <span class="kw">if </span><span class="kw-2">*</span>running {
+                                                    tokio::spawn(handle_client(socket, user.clone(), ip.clone(), addr.clone()));
+                                                } <span class="kw">else </span>{
+                                                    <span class="macro">println!</span>(<span class="string">"Arrêt demandé. Fermeture du serveur..."</span>);
+                                                    <span class="kw">return</span>;
+                                                }
+                                            },
+                                            <span class="prelude-val">Err</span>(e) =&gt; <span class="macro">eprintln!</span>(<span class="string">"Erreur lors de l'acceptation de la connexion: {}"</span>, e),
+                                        }
+                                    }
+                                    <span class="kw">_ </span>= tokio::signal::ctrl_c() =&gt; {
+                                        <span class="macro">println!</span>(<span class="string">"Signal Ctrl + C reçu. Arrêt des serveurs..."</span>);
+                                        <span class="kw-2">*</span>running_clone.lock().<span class="kw">await </span>= <span class="bool-val">false</span>;
+                                        <span class="kw">return</span>;
+                                    }
+                                }
+                            }
+                        });
+                        tasks.push(task);
+                    }
+                    <span class="prelude-val">Err</span>(e) =&gt; <span class="macro">eprintln!</span>(<span class="string">"Erreur de parsing de l'adresse : {}"</span>, e),
+                }
+            }
+            <span class="prelude-val">Err</span>(e) =&gt; <span class="macro">eprintln!</span>(<span class="string">"Erreur de parsing du port : {}"</span>, e),
+        }
+    }
+
+    <span class="kw">for </span>task <span class="kw">in </span>tasks {
+        task.<span class="kw">await</span><span class="question-mark">?</span>;
+    }
+
+    <span class="prelude-val">Ok</span>(())
+}</code></pre></div>
+<h2 id="panics"><a class="doc-anchor" href="#panics">§</a>Panics</h2>
+<p>Cette fonction ne devrait pas paniquer dans des conditions normales d’utilisation.</p>
+<h2 id="errors"><a class="doc-anchor" href="#errors">§</a>Errors</h2>
+<p>Cette fonction retourne une erreur si elle échoue à ouvrir le fichier <code>conf.txt</code>,
+à analyser les adresses IP ou les ports, ou à lier les listeners TCP.</p>
+<h2 id="tokio"><a class="doc-anchor" href="#tokio">§</a>Tokio</h2>
+<p>Cette fonction utilise l’attribut <code>#[tokio::main]</code> pour indiquer qu’elle est le point d’entrée
+d’une application Tokio asynchrone.</p>
+</div></details></section></div></main></body></html>
