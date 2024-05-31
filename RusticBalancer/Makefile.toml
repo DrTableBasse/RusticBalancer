@@ -1,0 +1,7 @@
+[tasks.run-all]
+script = [
+    "cargo run --bin load_balancer &",
+    "cargo run --bin echo_server &",
+    "cargo run --bin echo_server2 &",
+    "wait"
+]
