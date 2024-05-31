@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Point d’entrée principal de l’application. Ce serveur TCP accepte les connexions entrantes sur l’adresse locale `127.0.0.1` sur le port `8080` et envoie une réponse “Coucou” à chaque client."><title>main in echo_server2 - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="echo_server2" data-themes="" data-resource-suffix="" data-rustdoc-version="1.77.2 (25ef9e3d8 2024-04-09)" data-channel="1.77.2" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../static.files/storage-4c98445ec4002617.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../echo_server2/index.html">echo_server2</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"></div></nav><div class="sidebar-resizer"></div>
+    <main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../echo_server2/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Function <a href="index.html">echo_server2</a>::<wbr><a class="fn" href="#">main</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../src/echo_server2/serverping2.rs.html#69-104">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub(crate) fn main() -&gt; <a class="type" href="https://doc.rust-lang.org/1.77.2/std/io/error/type.Result.html" title="type std::io::error::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.77.2/std/primitive.unit.html">()</a>&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Point d’entrée principal de l’application. Ce serveur TCP accepte les connexions entrantes
+sur l’adresse locale <code>127.0.0.1</code> sur le port <code>8080</code> et envoie une réponse “Coucou” à chaque client.</p>
+<p>Cette fonction utilise Tokio pour gérer des opérations asynchrones, notamment l’écoute de connexions TCP
+et la gestion des communications avec les clients.</p>
+<h2 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h2>
+<p><code>tokio::io::Result&lt;()&gt;</code> - Un résultat indiquant le succès ou l’échec de l’exécution de la fonction.</p>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[tokio::main]
+</span><span class="kw">async fn </span>main() -&gt; tokio::io::Result&lt;()&gt; {
+    <span class="comment">// Lie le serveur TCP à l'adresse locale 127.0.0.1 sur le port 8080 et wait
+    </span><span class="kw">let </span>listener = TcpListener::bind(<span class="string">"127.0.0.1:8080"</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="macro">println!</span>(<span class="string">"Server running on 127.0.0.1:8080"</span>);
+
+    <span class="comment">// Boucle pour accepter les connexions
+    </span><span class="kw">loop </span>{
+        <span class="comment">// Accepte une nouvelle connexion `socket` est utilisé pour communiquer avec le client
+        </span><span class="kw">let </span>(<span class="kw-2">mut </span>socket, <span class="kw">_</span>) = listener.accept().<span class="kw">await</span><span class="question-mark">?</span>;
+         
+        <span class="comment">// Crée une tâche asynchrone pour chaque connexion entrante pour gérer les communications
+        </span>tokio::spawn(<span class="kw">async move </span>{
+            <span class="kw">let </span>response = <span class="string">b"Coucou"</span>;  <span class="comment">// Définit la réponse à envoyer au client
+            // Affiche l'adresse du client connecté, msg de log console
+            </span><span class="macro">println!</span>(<span class="string">"Received connection from: {:?}"</span>, socket.peer_addr().unwrap());
+             
+            <span class="comment">// Crée un buffer pour lire les données
+            </span><span class="kw">let </span><span class="kw-2">mut </span>buf = <span class="macro">vec!</span>[<span class="number">0</span>; <span class="number">1024</span>];
+
+            <span class="comment">// Boucle pour lire les données envoyées par le client
+            </span><span class="kw">loop </span>{
+                <span class="kw">match </span>socket.read(<span class="kw-2">&amp;mut </span>buf).<span class="kw">await </span>{
+                    <span class="prelude-val">Ok</span>(n) <span class="kw">if </span>n == <span class="number">0 </span>=&gt; <span class="kw">break</span>, <span class="comment">// Si le client ferme la connexion, arrête la boucle
+                    </span><span class="prelude-val">Ok</span>(_n) =&gt; {
+                        <span class="comment">// Envoie la réponse au client. Si l'envoi échoue, imprime un message d'erreur et arrête la boucle
+                        </span><span class="kw">if </span>socket.write_all(response).<span class="kw">await</span>.is_err() {
+                            <span class="macro">eprintln!</span>(<span class="string">"Failed to send response"</span>);
+                            <span class="kw">break</span>;
+                        }
+                    },
+                    <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="kw">break</span>, <span class="comment">// En cas d'erreur de lecture, arrête la boucle
+                </span>}
+            }
+        });
+    }
+}</code></pre></div>
+<h2 id="panics"><a class="doc-anchor" href="#panics">§</a>Panics</h2>
+<p>Cette fonction ne devrait pas paniquer dans des conditions normales d’utilisation.</p>
+<h2 id="errors"><a class="doc-anchor" href="#errors">§</a>Errors</h2>
+<p>Cette fonction retourne une erreur si elle échoue à lier le listener TCP ou à accepter une connexion entrante.</p>
+<h2 id="tokio"><a class="doc-anchor" href="#tokio">§</a>Tokio</h2>
+<p>Cette fonction utilise l’attribut <code>#[tokio::main]</code> pour indiquer qu’elle est le point d’entrée
+d’une application Tokio asynchrone.</p>
+</div></details></section></div></main></body></html>
